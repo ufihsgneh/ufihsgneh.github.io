@@ -1,3 +1,4 @@
-theme: remote_theme: pages-themes/minimal@v0.2.0
+theme: 
 title: AIAT
 description: AIAT Supervisor
+remote_theme: pages-themes/minimal@v0.2.0
