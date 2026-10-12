@@ -1,6 +1,6 @@
 ---
 layout: default
-title: 操作指南
+title: experiment plan
 nav_order: 2
 has_children: true
 ---
