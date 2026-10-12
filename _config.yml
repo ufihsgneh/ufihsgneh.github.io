@@ -1,10 +1,10 @@
 title: AIAT
 description: AIAT Supervisor
+baseurl: "" # 如果是 ufihsgneh.github.io 这个仓库，留空即可
+url: "https://ufihsgneh.github.io"
 
 remote_theme: just-the-docs/just-the-docs@v0.5.4
 
-plugins:
-  - jekyll-remote-theme
 
 
 permalink: pretty
