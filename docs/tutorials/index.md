@@ -1,8 +1,8 @@
 ---
 layout: default
-title: methods
-# survey scripts and interview questions
-# information sheet and consent form 
+title: THANKS
+# Thank you for join in the survey please contact us to get you gift
+9210
 nav_order: 2
 has_children: true
 ---
