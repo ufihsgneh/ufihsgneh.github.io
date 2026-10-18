@@ -8,5 +8,5 @@ nav_order: 1
 
 # Hey!Welcome to our homepage
 
-Fill the survey please click the 
+before you complete the questionaire please click the first 
 **INFORMED CONSENT FORM** AND **PARTICIPANTS INFORMATION SHEET**
