@@ -168,40 +168,41 @@
         }
         /* ======================================================= */
 
-        /* 流程图样式 */
-        .flow-diagram {
+        /* 竖向流程图样式 */
+        .vertical-flow {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-around;
+            gap: 15px;
             background-color: #f1f3f5;
-            padding: 15px;
-            border-radius: 6px;
+            padding: 25px;
+            border-radius: 8px;
             margin-top: 15px;
-            flex-wrap: wrap;
-            gap: 10px;
         }
 
-        .flow-box {
+        .vertical-box {
             background: white;
             border: 2px solid var(--primary-color);
-            padding: 8px 16px;
-            border-radius: 4px;
-            font-weight: 500;
-            font-size: 0.9rem;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            width: 90%;
+            max-width: 500px;
+            text-align: left;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
         }
 
-        .arrow {
-            font-size: 1.2rem;
+        .vertical-box:hover {
+            transform: translateX(8px);
+            border-color: var(--accent-color);
+        }
+
+        .vertical-box strong {
             color: var(--primary-color);
-        }
-
-        @media (max-width: 600px) {
-            .flow-diagram {
-                flex-direction: column;
-            }
-            .arrow {
-                transform: rotate(90deg);
-            }
+            margin-right: 10px;
+            font-size: 1.1rem;
         }
     </style>
 </head>
@@ -217,12 +218,12 @@
     <div class="section-card">
         <h2><span class="number">1</span> Background & Problem</h2>
         <ul>
-            <li>Background information</li>
-            <li>Problem statement</li>
+            <li>Background information:As a new PG student of AIAT, we had a mission to find a supervisor in our Academy. We found that it wastes a lot of time to find a supervisor in school official website so we create an agent for students who also face this problem. </li>
+            <li>Hypothesis: The AI agent is more effective than the official school website for finding supervisors.</li>
         </ul>
     </div>
 
-    <!-- 2. System (已添加图片、字体和超链接) -->
+    <!-- 2. System -->
     <div class="section-card">
         <h2><span class="number">2</span> System</h2>
         <ul>
@@ -230,10 +231,9 @@
             <li><strong>Agent Page:</strong> Includes user picture (包含用户图片的代理页面)</li>
         </ul>
 
-        <!-- 图片及超链接部分开始 -->
+        <!-- 图片及超链接部分 -->
         <a href="https://aiagent.xjtlu.edu.cn/product/llm/mall/application/db88d6n71095pu7vrka0/chat" target="_blank" style="text-decoration: none;">
             <div class="system-image-wrapper">
-                <!-- 请确保你的图片文件命名为 agent-page.png 并上传到同一个仓库目录下 -->
                 <img src="./agent-page.png" alt="SearchYourTutor Agent Page Screenshot">
                 
                 <div class="agent-label">Agent Page</div>
@@ -241,22 +241,21 @@
                 <span class="action-btn">访问智能体 (Access Agent) ↗</span>
             </div>
         </a>
-        <!-- 图片及超链接部分结束 -->
     </div>
 
-    <!-- 3. Study Design -->
+    <!-- 3. Study Design (改为竖列形式) -->
     <div class="section-card">
         <h2><span class="number">3</span> Study Design</h2>
         <p style="margin-top: 0; margin-bottom: 5px;">Experiment flow and procedure:</p>
-        <div class="flow-diagram">
-            <div class="flow-box">IV:</div>
-            <div class="arrow">➔</div>
-            <div class="flow-box">DV:</div>
-            <div class="arrow">➔</div>
-            <div class="flow-box">Task:</div>
-            <div class="arrow">➔</div>
-            <div class="flow-box">Procedure:</div>
+        
+        <!-- 竖列卡片容器 -->
+        <div class="vertical-flow">
+            <div class="vertical-box"><strong>IV:AI Agent</strong> Independent Variable</div>
+            <div class="vertical-box"><strong>DV:Sacrification</strong> Dependent Variable</div>
+            <div class="vertical-box"><strong>Task:</strong> Experimental Task</div>
+            <div class="vertical-box"><strong>Procedure:</strong> Study Procedure</div>
         </div>
+        
     </div>
 
     <!-- 4. Data Analysis & Results -->
