@@ -88,6 +88,7 @@
         ul {
             padding-left: 20px;
             margin: 0;
+            margin-bottom: 15px;
         }
 
         li {
@@ -98,6 +99,74 @@
             color: var(--accent-color);
             font-weight: bold;
         }
+
+        /* ================= 新增的图片及链接样式 ================= */
+        .system-image-wrapper {
+            text-align: center;
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .system-image-wrapper:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+        }
+
+        .system-image-wrapper img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: block;
+            margin: 0 auto;
+            transition: transform 0.3s ease;
+        }
+
+        .system-image-wrapper:hover img {
+            transform: scale(1.01);
+        }
+
+        /* 好看的字体样式：衬线体+斜体 */
+        .agent-label {
+            font-family: Georgia, "Times New Roman", "Songti SC", serif;
+            font-size: 1.4rem;
+            font-style: italic;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-top: 20px;
+            margin-bottom: 5px;
+            letter-spacing: 1.5px;
+        }
+
+        .link-hint {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 15px;
+        }
+
+        .action-btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(44, 62, 80, 0.2);
+        }
+
+        .action-btn:hover {
+            background-color: #1a252f;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(44, 62, 80, 0.3);
+        }
+        /* ======================================================= */
 
         /* 流程图样式 */
         .flow-diagram {
@@ -153,16 +222,29 @@
         </ul>
     </div>
 
-    <!-- 2. System (独立出来的部分) -->
+    <!-- 2. System (已添加图片、字体和超链接) -->
     <div class="section-card">
         <h2><span class="number">2</span> System</h2>
         <ul>
             <li><strong>User Page:</strong> System interface (用户界面)</li>
             <li><strong>Agent Page:</strong> Includes user picture (包含用户图片的代理页面)</li>
         </ul>
+
+        <!-- 图片及超链接部分开始 -->
+        <a href="https://aiagent.xjtlu.edu.cn/product/llm/mall/application/db88d6n71095pu7vrka0/chat" target="_blank" style="text-decoration: none;">
+            <div class="system-image-wrapper">
+                <!-- 请确保你的图片文件命名为 agent-page.png 并上传到同一个仓库目录下 -->
+                <img src="./agent-page.png" alt="SearchYourTutor Agent Page Screenshot">
+                
+                <div class="agent-label">Agent Page</div>
+                <div class="link-hint">* Click the image or button below to access the AI Agent</div>
+                <span class="action-btn">访问智能体 (Access Agent) ↗</span>
+            </div>
+        </a>
+        <!-- 图片及超链接部分结束 -->
     </div>
 
-    <!-- 3. Study Design (独立出来的部分) -->
+    <!-- 3. Study Design -->
     <div class="section-card">
         <h2><span class="number">3</span> Study Design</h2>
         <p style="margin-top: 0; margin-bottom: 5px;">Experiment flow and procedure:</p>
