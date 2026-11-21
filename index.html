@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Presentation Outline</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #e9ecef;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin: 0;
+            font-size: 2.2rem;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--primary-color);
+            transition: transform 0.2s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            margin-top: 0;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .number {
+            background-color: var(--primary-color);
+            color: white;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            margin-right: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .highlight {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        /* 特殊样式处理第3部分的流程图概念 */
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            background-color: #f1f3f5;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .flow-box {
+            background: white;
+            border: 2px solid var(--primary-color);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .arrow {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 600px) {
+            .flow-diagram {
+                flex-direction: column;
+            }
+            .arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Research Presentation</h1>
+        <div class="subtitle">Project Outline & Study Design</div>
+    </header>
+
+    <!-- 1. Background -->
+    <div class="section-card">
+        <h2><span class="number">1</span> Background & Problem</h2>
+        <ul>
+            <li>Background information</li>
+            <li>Conference details</li>
+            <li>Problem statement</li>
+        </ul>
+    </div>
+
+    <!-- 2. Research Questions -->
+    <div class="section-card">
+        <h2><span class="number">2</span> Research Questions</h2>
+        <ul>
+            <li>Mission (Crossed out in notes)</li>
+            <li>Research questions definition</li>
+        </ul>
+    </div>
+
+    <!-- 3. System & Study Design -->
+    <div class="section-card">
+        <h2><span class="number">3</span> System & Study Design</h2>
+        <ul>
+            <li><strong>User Page:</strong> System interface</li>
+            <li><strong>Agent Page:</strong> Includes user picture</li>
+        </ul>
+        
+        <p style="margin-top: 15px; margin-bottom: 5px;"><strong>Study Design Flow:</strong></p>
+        <div class="flow-diagram">
+            <div class="flow-box">Study Design</div>
+            <div class="arrow">➔</div>
+            <div class="flow-box">SW (Questionnaire/Dict)</div>
+            <div class="arrow">➔</div>
+            <div class="flow-box">Task</div>
+            <div class="arrow">➔</div>
+            <div class="flow-box">Procedure</div>
+        </div>
+    </div>
+
+    <!-- 4. Data Analysis & Results -->
+    <div class="section-card">
+        <h2><span class="number">4</span> Data Analysis & Results</h2>
+        <ul>
+            <li>Data analysis using <strong>SPSS</strong></li>
+            <li>Visual results presentation</li>
+            <li><strong>Wilcoxon test:</strong> For Likert scale data</li>
+            <li><strong>T-test:</strong> For time-based metrics (时间)</li>
+        </ul>
+    </div>
+
+    <!-- 5. Findings & Conclusion -->
+    <div class="section-card">
+        <h2><span class="number">5</span> Findings & Conclusion</h2>
+        <ul>
+            <li>Key findings</li>
+            <li>Overall conclusion</li>
+        </ul>
+    </div>
+
+    <!-- 6. Limitations & Future Work -->
+    <div class="section-card">
+        <h2><span class="number">6</span> Limitations & Future Work</h2>
+        <ul>
+            <li>Study limitations</li>
+            <li>Future work and next steps</li>
+        </ul>
+    </div>
+
+</div>
+
+</body>
+</html>
