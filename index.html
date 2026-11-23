@@ -4,57 +4,295 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Research Presentation Outline</title>
-    <!-- CDN 注意顺序：先chart.js，再boxplot扩展 -->
-    <script src="https://cdn.bootcdn.net/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-    <!-- boxplot UMD会导出全局 ChartBoxplot -->
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-boxplot@4.4.0/build/index.umd.min.js"></script>
+    <!-- 引入 Chart.js 核心库和箱线图插件 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-boxplot@4.2.0/build/index.umd.min.js"></script>
     
     <style>
-        :root { --primary-color: #2c3e50; --accent-color: #e74c3c; --bg-color: #f8f9fa; --card-bg: #ffffff; --text-color: #333333; --border-color: #e9ecef; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; margin: 0; padding: 20px; }
-        .container { max-width: 900px; margin: 0 auto; }
-        header { text-align: center; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid var(--primary-color); }
-        h1 { color: var(--primary-color); margin: 0; font-size: 2.2rem; }
-        .subtitle { color: #666; font-size: 1.1rem; margin-top: 10px; }
-        .section-card { background-color: var(--card-bg); border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); padding: 25px; margin-bottom: 25px; border-left: 5px solid var(--primary-color); transition: transform 0.2s ease; }
-        .section-card:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
-        h2 { color: var(--primary-color); font-size: 1.4rem; margin-top: 0; margin-bottom: 15px; display: flex; align-items: center; }
-        .number { background-color: var(--primary-color); color: white; width: 30px; height: 30px; display: inline-flex; justify-content: center; align-items: center; border-radius: 50%; margin-right: 12px; font-size: 1rem; font-weight: bold; }
-        ul { padding-left: 20px; margin: 0; margin-bottom: 15px; }
-        li { margin-bottom: 8px; }
-        .highlight { color: var(--accent-color); font-weight: bold; }
-        .system-image-wrapper { text-align: center; margin-top: 25px; padding: 20px; background-color: #f8f9fa; border-radius: 12px; border: 1px solid var(--border-color); transition: all 0.3s ease; }
-        .system-image-wrapper:hover { border-color: var(--primary-color); box-shadow: 0 8px 16px rgba(0,0,0,0.08); }
-        .system-image-wrapper img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); display: block; margin: 0 auto; transition: transform 0.3s ease; }
-        .system-image-wrapper:hover img { transform: scale(1.01); }
-        .agent-label { font-family: Georgia, "Times New Roman", "Songti SC", serif; font-size: 1.4rem; font-style: italic; font-weight: 700; color: var(--primary-color); margin-top: 20px; margin-bottom: 5px; letter-spacing: 1.5px; }
-        .link-hint { font-size: 0.85rem; color: #888; margin-bottom: 15px; }
-        .action-btn { display: inline-block; background-color: var(--primary-color); color: white; padding: 10px 24px; border-radius: 25px; text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: background-color 0.3s ease, transform 0.2s ease; box-shadow: 0 4px 6px rgba(44, 62, 80, 0.2); }
-        .action-btn:hover { background-color: #1a252f; transform: translateY(-2px); box-shadow: 0 6px 10px rgba(44, 62, 80, 0.3); }
-        .vertical-flow { display: flex; flex-direction: column; align-items: center; gap: 15px; background-color: #f1f3f5; padding: 25px; border-radius: 8px; margin-top: 15px; }
-        .vertical-box { background: white; border: 2px solid var(--primary-color); padding: 12px 25px; border-radius: 6px; font-weight: 600; font-size: 1rem; width: 90%; max-width: 500px; text-align: left; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: all 0.2s ease; }
-        .vertical-box:hover { transform: translateX(8px); border-color: var(--accent-color); }
-        .vertical-box strong { color: var(--primary-color); margin-right: 10px; font-size: 1.1rem; }
-        .qr-container { text-align: center; margin-top: 25px; padding: 20px; background-color: #ffffff; border-radius: 8px; border: 1px dashed var(--primary-color); }
-        .qr-container img { border: 5px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 8px; width: 150px; height: 150px; }
-        .results-container { background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
-        .conclusion-box{margin-bottom:25px;background-color:#e8f4fd;border-left:4px solid #3498db;padding:15px 20px;border-radius:0 6px 6px 0;}
-        .result-title { color: var(--primary-color); font-size: 1.1rem; margin-top: 10px; margin-bottom: 15px; border-bottom: 2px solid var(--border-color); padding-bottom: 5px; }
-        .custom-table { width: 100%; border-collapse: collapse; margin-bottom: 25px; background-color: #ffffff; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border-radius: 6px; overflow: hidden; }
-        .custom-table th, .custom-table td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border-color); }
-        .custom-table th { background-color: var(--primary-color); color: white; font-weight: 500; letter-spacing: 0.5px; }
-        .custom-table tbody tr:hover { background-color: #f1f3f5; }
-        .custom-table .total-row { background-color: #e9ecef; font-weight: bold; }
-        .statistic-table th { background-color: #34495e; }
-        .chart-container { background-color: #ffffff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #e9ecef;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin: 0;
+            font-size: 2.2rem;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        .section-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--primary-color);
+            transition: transform 0.2s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            margin-top: 0;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .number {
+            background-color: var(--primary-color);
+            color: white;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            margin-right: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin: 0;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .highlight {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        /* ================= 图片及链接样式 ================= */
+        .system-image-wrapper {
+            text-align: center;
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .system-image-wrapper:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+        }
+
+        .system-image-wrapper img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: block;
+            margin: 0 auto;
+            transition: transform 0.3s ease;
+        }
+
+        .system-image-wrapper:hover img {
+            transform: scale(1.01);
+        }
+
+        .agent-label {
+            font-family: Georgia, "Times New Roman", "Songti SC", serif;
+            font-size: 1.4rem;
+            font-style: italic;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-top: 20px;
+            margin-bottom: 5px;
+            letter-spacing: 1.5px;
+        }
+
+        .link-hint {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 15px;
+        }
+
+        .action-btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(44, 62, 80, 0.2);
+        }
+
+        .action-btn:hover {
+            background-color: #1a252f;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(44, 62, 80, 0.3);
+        }
+
+        /* ================= 竖向流程图及二维码样式 ================= */
+        .vertical-flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            background-color: #f1f3f5;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .vertical-box {
+            background: white;
+            border: 2px solid var(--primary-color);
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            width: 90%;
+            max-width: 500px;
+            text-align: left;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+        }
+
+        .vertical-box:hover {
+            transform: translateX(8px);
+            border-color: var(--accent-color);
+        }
+
+        .vertical-box strong {
+            color: var(--primary-color);
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        .qr-container {
+            text-align: center;
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            border: 1px dashed var(--primary-color);
+        }
+        
+        .qr-container img {
+            border: 5px solid white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            width: 150px;
+            height: 150px;
+        }
+
+        /* ================= 数据分析表格及图表样式 ================= */
+        .results-container {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .result-title {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .custom-table th, .custom-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .custom-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .custom-table tbody tr:hover {
+            background-color: #f1f3f5;
+        }
+
+        .custom-table .total-row {
+            background-color: #e9ecef;
+            font-weight: bold;
+        }
+        
+        .statistic-table th {
+            background-color: #34495e;
+        }
+
+        .chart-container {
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
     </style>
 </head>
 <body>
+
 <div class="container">
     <header>
         <h1>Research Presentation</h1>
         <div class="subtitle">Project Outline & Study Design</div>
     </header>
+
     <!-- 1. Background -->
     <div class="section-card">
         <h2><span class="number">1</span> Background & Problem</h2>
@@ -63,6 +301,7 @@
             <li><strong>Hypothesis:</strong> The AI agent is more effective than the official school website for finding supervisors.</li>
         </ul>
     </div>
+
     <!-- 2. System -->
     <div class="section-card">
         <h2><span class="number">2</span> System</h2>
@@ -70,16 +309,17 @@
             <li><strong>User Page:</strong> System interface (用户界面)</li>
             <li><strong>Agent Page:</strong> Includes user picture (包含用户图片的代理页面)</li>
         </ul>
+
         <a href="https://aiagent.xjtlu.edu.cn/product/llm/mall/application/db88d6n71095pu7vrka0/chat" target="_blank" style="text-decoration: none;">
             <div class="system-image-wrapper">
-                <!-- 注意：agent‑page.png 本地没有的话，这个img会404，你要么把图片放到同目录，要么注释掉img标签 -->
-                <!-- <img src="./agent-page.png" alt="SearchYourTutor Agent Page Screenshot"> -->
+                <img src="./agent-page.png" alt="SearchYourTutor Agent Page Screenshot">
                 <div class="agent-label">Agent Page</div>
-                <div class="link-hint">* Click the button below to access the AI Agent</div>
+                <div class="link-hint">* Click the image or button below to access the AI Agent</div>
                 <span class="action-btn">访问智能体 (Access Agent) ↗</span>
             </div>
         </a>
     </div>
+
     <!-- 3. Study Design (含二维码) -->
     <div class="section-card">
         <h2><span class="number">3</span> Study Design</h2>
@@ -91,53 +331,65 @@
             <div class="vertical-box"><strong>Task:</strong> Find specific supervisor info</div>
             <div class="vertical-box"><strong>Procedure:</strong> Random assignment -> Test -> Survey</div>
         </div>
+
         <!-- 二维码展示区 -->
         <div class="qr-container">
             <p style="margin-top: 0; margin-bottom: 15px; font-weight: bold; color: var(--primary-color);">Scan QR Code to join the survey / experiment</p>
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fyuyue.wjx.com%2Fvm%2FOLDyM2w.aspx" alt="Survey QR Code">
         </div>
     </div>
-    <!-- 4. Data Analysis & Results (图表版本) -->
+
+    <!-- 4. Data Analysis & Results (含图表版本) -->
     <div class="section-card">
         <h2><span class="number">4</span> Data Analysis & Results</h2>
         
         <div class="results-container">
-            <div class="conclusion-box">
-                <strong>Core Conclusion:</strong> The completion time using the AI agent (Time_agent) is significantly lower than the official search (Time_official), and the difference is statistically significant (p &lt; .05). However, the Official Website still scores higher in providing confidence.
+            <!-- 核心结论置顶 -->
+            <div class="conclusion-box" style="margin-bottom: 25px; background-color: #e8f4fd; border-left: 4px solid #3498db; padding: 15px 20px; border-radius: 0 6px 6px 0;">
+                <strong>Core Conclusion:</strong> The completion time using the AI agent (Time_agent) is significantly lower than the official search (Time_official), and the difference is statistically significant (p < .05). However, the Official Website still scores higher in providing confidence.
             </div>
+
+            <!-- 图表容器：时间箱线图 (新增) -->
             <h3 class="result-title">Time Distribution (Boxplot Analysis)</h3>
             <div class="chart-container" style="position: relative; height:300px; width:100%; margin-bottom: 30px;">
                 <canvas id="boxplotChart"></canvas>
             </div>
+
+            <!-- 图表容器：时间对比柱状图 -->
             <h3 class="result-title">Time Comparison (Agent vs Official)</h3>
             <div class="chart-container" style="position: relative; height:300px; width:100%; margin-bottom: 30px;">
                 <canvas id="timeChart"></canvas>
             </div>
+
+            <!-- 图表容器：问卷雷达图 -->
             <h3 class="result-title">User Experience Dimensions (Average Scores)</h3>
             <div class="chart-container" style="position: relative; height:350px; width:100%; max-width: 500px; margin: 0 auto 30px auto;">
                 <canvas id="radarChart"></canvas>
             </div>
+
+            <!-- 统计检验结果表 -->
             <h3 class="result-title">Statistical Test Statistics</h3>
             <table class="custom-table statistic-table">
                 <thead>
                     <tr>
                         <th>Test Metrics</th>
                         <th>Test Statistic</th>
-                        <th>p‑value (2‑tailed)</th>
+                        <th>p-value (2-tailed)</th>
                         <th>Significance</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><strong>Wilcoxon Signed Ranks</strong></td>
-                        <td>Z = ‑2.580</td>
-                        <td style="color: #e74c3c; font-weight: bold; font-size: 1.1rem;">0.010</td>
+                        <td>Z = -2.580</td>
+                        <td class="highlight-p" style="color: #e74c3c; font-weight: bold; font-size: 1.1rem;">0.010</td>
                         <td style="color: #27ae60; font-weight: bold;">✅ Significant</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
+
     <!-- 5. Findings & Conclusion -->
     <div class="section-card">
         <h2><span class="number">5</span> Findings & Conclusion</h2>
@@ -146,6 +398,7 @@
             <li>Users are highly satisfied with the Agent's efficiency, but trust remains a factor.</li>
         </ul>
     </div>
+
     <!-- 6. Recommendation -->
     <div class="section-card">
         <h2><span class="number">6</span> Recommendation</h2>
@@ -155,66 +408,41 @@
             <li><strong>For School:</strong> Consider integrating AI search into the official website.</li>
         </ul>
     </div>
+
 </div>
 
+<!-- ================= 图表渲染脚本 ================= -->
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    if (typeof Chart === 'undefined') {
-        console.error('Chart.js 加载失败');
-        return;
-    }
-    // ✅ boxplot UMD导出在全局ChartBoxplot对象，不是Chart内部
-    if(typeof ChartBoxplot === 'undefined'){
-        console.error('chartjs‑chart‑boxplot扩展加载失败！');
-        return;
-    }
-    const { BoxPlotController, BoxAndWiskers } = ChartBoxplot;
-    Chart.register(BoxPlotController, BoxAndWiskers);
-
-    // -------- Boxplot 注意：boxplot插件接收预计算对象，不接受原始数组，这里使用工具函数转换原始数组
-    function arrayToBoxplotData(arr){
-        const s = [...arr].sort((a,b)=>a‑b);
-        const len = s.length;
-        const q1Idx = Math.floor(len*0.25);
-        const q3Idx = Math.floor(len*0.75);
-        return {
-            min:s[0],
-            q1:s[q1Idx],
-            median:s[Math.floor(len*0.5)],
-            q3:s[q3Idx],
-            max:s[len‑1],
-            outliers:[]
-        }
-    }
-    const officialRaw = [80, 52, 243, 1200, 500, 300, 150, 120, 300, 20, 300, 600];
-    const agentRaw = [120, 61, 180, 360, 3, 60, 5, 100, 150, 20, 180, 360];
-
-    const boxplotCanvas = document.getElementById('boxplotChart');
-    if (boxplotCanvas) {
-        const boxplotCtx = boxplotCanvas.getContext('2d');
-        new Chart(boxplotCtx, {
-            type: 'boxplot',
-            data: {
-                labels: ['Official Search', 'AI Agent'],
-                datasets: [{
-                    label: 'Time (Seconds)',
-                    data: [ arrayToBoxplotData(officialRaw), arrayToBoxplotData(agentRaw) ],
-                    backgroundColor: ['rgba(149, 165, 166, 0.8)', 'rgba(44, 62, 80, 0.8)'],
-                    borderColor: ['#7f8c8d', '#1a252f'],
-                    borderWidth: 1.5,
-                    outlierColor: '#e74c3c',
-                    medianColor: '#ffffff'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                const item = context.raw;
+    // --- 1. 时间对比箱线图 (Boxplot) ---
+    const boxplotCtx = document.getElementById('boxplotChart').getContext('2d');
+    new Chart(boxplotCtx, {
+        type: 'boxplot',
+        data: {
+            labels: ['Official Search', 'AI Agent'],
+            datasets: [{
+                label: 'Time (Seconds)',
+                // 直接传入原始数据，插件会自动计算中位数、四分位数和异常值
+                data: [
+                    [80, 52, 243, 1200, 500, 300, 150, 120, 300, 20, 300, 600], // Official
+                    [120, 61, 180, 360, 3, 60, 5, 100, 150, 20, 180, 360]     // Agent
+                ],
+                backgroundColor: ['rgba(149, 165, 166, 0.7)', 'rgba(44, 62, 80, 0.7)'], // 灰色 vs 主题深蓝
+                borderColor: ['#7f8c8d', '#1a252f'],
+                borderWidth: 1.5,
+                outlierColor: '#e74c3c', // 异常值用红色显示，SPSS风格
+                medianColor: '#ffffff'   // 中位数线用白色，在深色箱体上更清晰
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }, // 隐藏图例，因为X轴已经标明
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let item = context.raw;
+                            if (item && item.min !== undefined) {
                                 return [
                                     `Max: ${item.max.toFixed(1)}s`,
                                     `Q3: ${item.q3.toFixed(1)}s`,
@@ -223,109 +451,106 @@ document.addEventListener('DOMContentLoaded', function () {
                                     `Min: ${item.min.toFixed(1)}s`
                                 ];
                             }
+                            return item;
                         }
                     }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: { display: true, text: 'Time (Seconds)' },
-                        grid: { color: '#e9ecef' }
-                    },
-                    x: { grid: { display: false } }
                 }
-            }
-        });
-    }
-
-    // -------- 柱状图
-    const timeCanvas = document.getElementById('timeChart');
-    if (timeCanvas) {
-        const timeCtx = timeCanvas.getContext('2d');
-        new Chart(timeCtx, {
-            type: 'bar',
-            data: {
-                labels: ['P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8', 'P9', 'P10', 'P11', 'P12'],
-                datasets: [
-                    {
-                        label: 'Official Search (Seconds)',
-                        data: officialRaw,
-                        backgroundColor: '#95a5a6',
-                        borderColor: '#7f8c8d',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'AI Agent (Seconds)',
-                        data: agentRaw,
-                        backgroundColor: '#2c3e50',
-                        borderColor: '#1a252f',
-                        borderWidth: 1
-                    }
-                ]
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { position: 'top' },
-                    tooltip: { mode: 'index', intersect: false }
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: { display: true, text: 'Time (Seconds)' },
+                    grid: { color: '#e9ecef' }
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: { display: true, text: 'Time (Seconds)' }
-                    }
+                x: {
+                    grid: { display: false }
                 }
             }
-        });
-    }
+        }
+    });
 
-    // --------雷达图
-    const radarCanvas = document.getElementById('radarChart');
-    if (radarCanvas) {
-        const radarCtx = radarCanvas.getContext('2d');
-        new Chart(radarCtx, {
-            type: 'radar',
-            data: {
-                labels: ['Information', 'Save Time', 'Match', 'Confidence', 'Decision'],
-                datasets: [
-                    {
-                        label: 'Official Website',
-                        data: [4.25, 3.50, 3.58, 4.50, 3.75],
-                        backgroundColor: 'rgba(149, 165, 166, 0.2)',
-                        borderColor: '#95a5a6',
-                        pointBackgroundColor: '#95a5a6',
-                        borderWidth: 2
-                    },
-                    {
-                        label: 'AI Agent',
-                        data: [3.83, 4.08, 4.17, 3.75, 4.17],
-                        backgroundColor: 'rgba(44, 62, 80, 0.2)',
-                        borderColor: '#2c3e50',
-                        pointBackgroundColor: '#2c3e50',
-                        borderWidth: 2
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { position: 'bottom' }
+    // --- 2. 时间对比柱状图 ---
+    const timeCtx = document.getElementById('timeChart').getContext('2d');
+    new Chart(timeCtx, {
+        type: 'bar',
+        data: {
+            labels: ['P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8', 'P9', 'P10', 'P11', 'P12'],
+            datasets: [
+                {
+                    label: 'Official Search (Seconds)',
+                    data: [80, 52, 243, 1200, 500, 300, 150, 120, 300, 20, 300, 600],
+                    backgroundColor: '#95a5a6',
+                    borderColor: '#7f8c8d',
+                    borderWidth: 1
                 },
-                scales: {
-                    r: {
-                        angleLines: { color: '#e9ecef' },
-                        grid: { color: '#e9ecef' },
-                        pointLabels: { font: { size: 13, weight: 'bold' }, color: '#2c3e50' },
-                        suggestedMin: 2,
-                        suggestedMax: 5
-                    }
+                {
+                    label: 'AI Agent (Seconds)',
+                    data: [120, 61, 180, 360, 3, 60, 5, 100, 150, 20, 180, 360],
+                    backgroundColor: '#2c3e50',
+                    borderColor: '#1a252f',
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: { mode: 'index', intersect: false }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: { display: true, text: 'Time (Seconds)' }
                 }
             }
-        });
-    }
-});
+        }
+    });
+
+    // --- 3. 用户体验雷达图 ---
+    const radarCtx = document.getElementById('radarChart').getContext('2d');
+    new Chart(radarCtx, {
+        type: 'radar',
+        data: {
+            labels: ['Information', 'Save Time', 'Match', 'Confidence', 'Decision'],
+            datasets: [
+                {
+                    label: 'Official Website',
+                    data: [4.25, 3.50, 3.58, 4.50, 3.75],
+                    backgroundColor: 'rgba(149, 165, 166, 0.2)',
+                    borderColor: '#95a5a6',
+                    pointBackgroundColor: '#95a5a6',
+                    borderWidth: 2
+                },
+                {
+                    label: 'AI Agent',
+                    data: [3.83, 4.08, 4.17, 3.75, 4.17],
+                    backgroundColor: 'rgba(44, 62, 80, 0.2)',
+                    borderColor: '#2c3e50',
+                    pointBackgroundColor: '#2c3e50',
+                    borderWidth: 2
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom' }
+            },
+            scales: {
+                r: {
+                    angleLines: { color: '#e9ecef' },
+                    grid: { color: '#e9ecef' },
+                    pointLabels: { font: { size: 13, weight: 'bold' }, color: '#2c3e50' },
+                    suggestedMin: 2,
+                    suggestedMax: 5
+                }
+            }
+        }
+    });
 </script>
+
 </body>
 </html>
