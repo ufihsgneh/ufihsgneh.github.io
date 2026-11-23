@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Research Presentation Outline</title>
-    <!-- 引入 Chart.js 核心库和箱线图插件 -->
+    <!-- 引入 Chart.js 用于生成图表 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-boxplot@4.2.0/build/index.umd.min.js"></script>
     
     <style>
         :root {
@@ -339,7 +338,7 @@
         </div>
     </div>
 
-    <!-- 4. Data Analysis & Results (含图表版本) -->
+    <!-- 4. Data Analysis & Results (图表+数据表版本) -->
     <div class="section-card">
         <h2><span class="number">4</span> Data Analysis & Results</h2>
         
@@ -349,13 +348,7 @@
                 <strong>Core Conclusion:</strong> The completion time using the AI agent (Time_agent) is significantly lower than the official search (Time_official), and the difference is statistically significant (p < .05). However, the Official Website still scores higher in providing confidence.
             </div>
 
-            <!-- 图表容器：时间箱线图 (新增) -->
-            <h3 class="result-title">Time Distribution (Boxplot Analysis)</h3>
-            <div class="chart-container" style="position: relative; height:300px; width:100%; margin-bottom: 30px;">
-                <canvas id="boxplotChart"></canvas>
-            </div>
-
-            <!-- 图表容器：时间对比柱状图 -->
+            <!-- 图表容器：时间对比 -->
             <h3 class="result-title">Time Comparison (Agent vs Official)</h3>
             <div class="chart-container" style="position: relative; height:300px; width:100%; margin-bottom: 30px;">
                 <canvas id="timeChart"></canvas>
@@ -413,63 +406,7 @@
 
 <!-- ================= 图表渲染脚本 ================= -->
 <script>
-    // --- 1. 时间对比箱线图 (Boxplot) ---
-    const boxplotCtx = document.getElementById('boxplotChart').getContext('2d');
-    new Chart(boxplotCtx, {
-        type: 'boxplot',
-        data: {
-            labels: ['Official Search', 'AI Agent'],
-            datasets: [{
-                label: 'Time (Seconds)',
-                // 直接传入原始数据，插件会自动计算中位数、四分位数和异常值
-                data: [
-                    [80, 52, 243, 1200, 500, 300, 150, 120, 300, 20, 300, 600], // Official
-                    [120, 61, 180, 360, 3, 60, 5, 100, 150, 20, 180, 360]     // Agent
-                ],
-                backgroundColor: ['rgba(149, 165, 166, 0.7)', 'rgba(44, 62, 80, 0.7)'], // 灰色 vs 主题深蓝
-                borderColor: ['#7f8c8d', '#1a252f'],
-                borderWidth: 1.5,
-                outlierColor: '#e74c3c', // 异常值用红色显示，SPSS风格
-                medianColor: '#ffffff'   // 中位数线用白色，在深色箱体上更清晰
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: { display: false }, // 隐藏图例，因为X轴已经标明
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            let item = context.raw;
-                            if (item && item.min !== undefined) {
-                                return [
-                                    `Max: ${item.max.toFixed(1)}s`,
-                                    `Q3: ${item.q3.toFixed(1)}s`,
-                                    `Median: ${item.median.toFixed(1)}s`,
-                                    `Q1: ${item.q1.toFixed(1)}s`,
-                                    `Min: ${item.min.toFixed(1)}s`
-                                ];
-                            }
-                            return item;
-                        }
-                    }
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: { display: true, text: 'Time (Seconds)' },
-                    grid: { color: '#e9ecef' }
-                },
-                x: {
-                    grid: { display: false }
-                }
-            }
-        }
-    });
-
-    // --- 2. 时间对比柱状图 ---
+    // --- 1. 时间对比柱状图数据 ---
     const timeCtx = document.getElementById('timeChart').getContext('2d');
     new Chart(timeCtx, {
         type: 'bar',
@@ -479,14 +416,14 @@
                 {
                     label: 'Official Search (Seconds)',
                     data: [80, 52, 243, 1200, 500, 300, 150, 120, 300, 20, 300, 600],
-                    backgroundColor: '#95a5a6',
+                    backgroundColor: '#95a5a6', // 官方用灰色
                     borderColor: '#7f8c8d',
                     borderWidth: 1
                 },
                 {
                     label: 'AI Agent (Seconds)',
                     data: [120, 61, 180, 360, 3, 60, 5, 100, 150, 20, 180, 360],
-                    backgroundColor: '#2c3e50',
+                    backgroundColor: '#2c3e50', // Agent用主题深蓝
                     borderColor: '#1a252f',
                     borderWidth: 1
                 }
@@ -508,7 +445,8 @@
         }
     });
 
-    // --- 3. 用户体验雷达图 ---
+    // --- 2. 用户体验雷达图数据 ---
+    // 数据基于提供的 Excel 计算出的平均值
     const radarCtx = document.getElementById('radarChart').getContext('2d');
     new Chart(radarCtx, {
         type: 'radar',
