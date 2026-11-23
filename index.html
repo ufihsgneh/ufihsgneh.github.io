@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Research Presentation Outline</title>
+    <!-- 引入 Chart.js 用于生成图表 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -220,7 +223,7 @@
             height: 150px;
         }
 
-        /* ================= 数据分析表格样式 ================= */
+        /* ================= 数据分析表格及图表样式 ================= */
         .results-container {
             background-color: #f8f9fa;
             padding: 20px;
@@ -231,8 +234,8 @@
         .result-title {
             color: var(--primary-color);
             font-size: 1.1rem;
-            margin-top: 0;
-            margin-bottom: 10px;
+            margin-top: 10px;
+            margin-bottom: 15px;
             border-bottom: 2px solid var(--border-color);
             padding-bottom: 5px;
         }
@@ -271,6 +274,13 @@
         
         .statistic-table th {
             background-color: #34495e;
+        }
+
+        .chart-container {
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
     </style>
 </head>
@@ -315,10 +325,10 @@
         <p style="margin-top: 0; margin-bottom: 5px;">Experiment flow and procedure:</p>
         
         <div class="vertical-flow">
-            <div class="vertical-box"><strong>IV:AI Agent</strong> Independent Variable</div>
-            <div class="vertical-box"><strong>DV:Sacrification</strong> Dependent Variable</div>
-            <div class="vertical-box"><strong>Task:</strong> Experimental Task</div>
-            <div class="vertical-box"><strong>Procedure:</strong> Study Procedure</div>
+            <div class="vertical-box"><strong>IV:</strong> AI Agent vs Official Website</div>
+            <div class="vertical-box"><strong>DV:</strong> Completion Time & Satisfaction Score</div>
+            <div class="vertical-box"><strong>Task:</strong> Find specific supervisor info</div>
+            <div class="vertical-box"><strong>Procedure:</strong> Random assignment -> Test -> Survey</div>
         </div>
 
         <!-- 二维码展示区 -->
@@ -328,16 +338,30 @@
         </div>
     </div>
 
-    <!-- 4. Data Analysis & Results (美化版) -->
+    <!-- 4. Data Analysis & Results (图表+数据表版本) -->
     <div class="section-card">
         <h2><span class="number">4</span> Data Analysis & Results</h2>
         
         <div class="results-container">
+            <!-- 核心结论置顶 -->
             <div class="conclusion-box" style="margin-bottom: 25px; background-color: #e8f4fd; border-left: 4px solid #3498db; padding: 15px 20px; border-radius: 0 6px 6px 0;">
-                <strong>Core Conclusion:</strong> The completion time using the AI agent (Time_agent) is significantly lower than the official search (Time_official), and the difference is statistically significant (p < .05).
+                <strong>Core Conclusion:</strong> The completion time using the AI agent (Time_agent) is significantly lower than the official search (Time_official), and the difference is statistically significant (p < .05). However, the Official Website still scores higher in providing confidence.
             </div>
 
-            <h3 class="result-title">Test Statistics</h3>
+            <!-- 图表容器：时间对比 -->
+            <h3 class="result-title">Time Comparison (Agent vs Official)</h3>
+            <div class="chart-container" style="position: relative; height:300px; width:100%; margin-bottom: 30px;">
+                <canvas id="timeChart"></canvas>
+            </div>
+
+            <!-- 图表容器：问卷雷达图 -->
+            <h3 class="result-title">User Experience Dimensions (Average Scores)</h3>
+            <div class="chart-container" style="position: relative; height:350px; width:100%; max-width: 500px; margin: 0 auto 30px auto;">
+                <canvas id="radarChart"></canvas>
+            </div>
+
+            <!-- 统计检验结果表 -->
+            <h3 class="result-title">Statistical Test Statistics</h3>
             <table class="custom-table statistic-table">
                 <thead>
                     <tr>
@@ -356,44 +380,6 @@
                     </tr>
                 </tbody>
             </table>
-
-            <h3 class="result-title" style="margin-top: 30px;">Ranks Summary</h3>
-            <table class="custom-table">
-                <thead>
-                    <tr>
-                        <th>Comparison</th>
-                        <th>N</th>
-                        <th>Mean Rank</th>
-                        <th>Sum of Ranks</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Negative Ranks</strong> <span style="color: #888; font-size: 0.85rem;">(Agent < Official)</span></td>
-                        <td>9</td>
-                        <td>6.89</td>
-                        <td>62.00</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Positive Ranks</strong> <span style="color: #888; font-size: 0.85rem;">(Agent > Official)</span></td>
-                        <td>2</td>
-                        <td>2.00</td>
-                        <td>4.00</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Ties</strong> <span style="color: #888; font-size: 0.85rem;">(Agent = Official)</span></td>
-                        <td>1</td>
-                        <td>-</td>
-                        <td>-</td>
-                    </tr>
-                    <tr class="total-row">
-                        <td><strong>Total</strong></td>
-                        <td><strong>12</strong></td>
-                        <td>-</td>
-                        <td>-</td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </div>
 
@@ -401,8 +387,8 @@
     <div class="section-card">
         <h2><span class="number">5</span> Findings & Conclusion</h2>
         <ul>
-            <li>Key findings</li>
-            <li>Overall conclusion</li>
+            <li>AI Agent significantly reduces the time to find supervisors compared to the official website.</li>
+            <li>Users are highly satisfied with the Agent's efficiency, but trust remains a factor.</li>
         </ul>
     </div>
 
@@ -410,13 +396,99 @@
     <div class="section-card">
         <h2><span class="number">6</span> Recommendation</h2>
         <ul>
-            <li>Recommendations for future research</li>
-            <li>Practical suggestions for students</li>
-            <li>Next steps for the AI agent development</li>
+            <li><strong>For Development:</strong> Enhance data accuracy to increase user confidence.</li>
+            <li><strong>For Students:</strong> Use the AI Agent for quick initial screening of supervisors.</li>
+            <li><strong>For School:</strong> Consider integrating AI search into the official website.</li>
         </ul>
     </div>
 
 </div>
+
+<!-- ================= 图表渲染脚本 ================= -->
+<script>
+    // --- 1. 时间对比柱状图数据 ---
+    const timeCtx = document.getElementById('timeChart').getContext('2d');
+    new Chart(timeCtx, {
+        type: 'bar',
+        data: {
+            labels: ['P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8', 'P9', 'P10', 'P11', 'P12'],
+            datasets: [
+                {
+                    label: 'Official Search (Seconds)',
+                    data: [80, 52, 243, 1200, 500, 300, 150, 120, 300, 20, 300, 600],
+                    backgroundColor: '#95a5a6', // 官方用灰色
+                    borderColor: '#7f8c8d',
+                    borderWidth: 1
+                },
+                {
+                    label: 'AI Agent (Seconds)',
+                    data: [120, 61, 180, 360, 3, 60, 5, 100, 150, 20, 180, 360],
+                    backgroundColor: '#2c3e50', // Agent用主题深蓝
+                    borderColor: '#1a252f',
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: { mode: 'index', intersect: false }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: { display: true, text: 'Time (Seconds)' }
+                }
+            }
+        }
+    });
+
+    // --- 2. 用户体验雷达图数据 ---
+    // 数据基于提供的 Excel 计算出的平均值
+    const radarCtx = document.getElementById('radarChart').getContext('2d');
+    new Chart(radarCtx, {
+        type: 'radar',
+        data: {
+            labels: ['Information', 'Save Time', 'Match', 'Confidence', 'Decision'],
+            datasets: [
+                {
+                    label: 'Official Website',
+                    data: [4.25, 3.50, 3.58, 4.50, 3.75],
+                    backgroundColor: 'rgba(149, 165, 166, 0.2)',
+                    borderColor: '#95a5a6',
+                    pointBackgroundColor: '#95a5a6',
+                    borderWidth: 2
+                },
+                {
+                    label: 'AI Agent',
+                    data: [3.83, 4.08, 4.17, 3.75, 4.17],
+                    backgroundColor: 'rgba(44, 62, 80, 0.2)',
+                    borderColor: '#2c3e50',
+                    pointBackgroundColor: '#2c3e50',
+                    borderWidth: 2
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom' }
+            },
+            scales: {
+                r: {
+                    angleLines: { color: '#e9ecef' },
+                    grid: { color: '#e9ecef' },
+                    pointLabels: { font: { size: 13, weight: 'bold' }, color: '#2c3e50' },
+                    suggestedMin: 2,
+                    suggestedMax: 5
+                }
+            }
+        }
+    });
+</script>
 
 </body>
 </html>
