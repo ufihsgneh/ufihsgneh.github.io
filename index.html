@@ -100,7 +100,7 @@
             font-weight: bold;
         }
 
-        /* ================= 新增的图片及链接样式 ================= */
+        /* ================= 图片及链接样式 ================= */
         .system-image-wrapper {
             text-align: center;
             margin-top: 25px;
@@ -130,7 +130,6 @@
             transform: scale(1.01);
         }
 
-        /* 好看的字体样式：衬线体+斜体 */
         .agent-label {
             font-family: Georgia, "Times New Roman", "Songti SC", serif;
             font-size: 1.4rem;
@@ -166,9 +165,8 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 10px rgba(44, 62, 80, 0.3);
         }
-        /* ======================================================= */
 
-        /* 竖向流程图样式 */
+        /* ================= 竖向流程图及二维码样式 ================= */
         .vertical-flow {
             display: flex;
             flex-direction: column;
@@ -204,6 +202,76 @@
             margin-right: 10px;
             font-size: 1.1rem;
         }
+
+        .qr-container {
+            text-align: center;
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            border: 1px dashed var(--primary-color);
+        }
+        
+        .qr-container img {
+            border: 5px solid white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            width: 150px;
+            height: 150px;
+        }
+
+        /* ================= 数据分析表格样式 ================= */
+        .results-container {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .result-title {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .custom-table th, .custom-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .custom-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .custom-table tbody tr:hover {
+            background-color: #f1f3f5;
+        }
+
+        .custom-table .total-row {
+            background-color: #e9ecef;
+            font-weight: bold;
+        }
+        
+        .statistic-table th {
+            background-color: #34495e;
+        }
     </style>
 </head>
 <body>
@@ -231,11 +299,9 @@
             <li><strong>Agent Page:</strong> Includes user picture (包含用户图片的代理页面)</li>
         </ul>
 
-        <!-- 图片及超链接部分 -->
         <a href="https://aiagent.xjtlu.edu.cn/product/llm/mall/application/db88d6n71095pu7vrka0/chat" target="_blank" style="text-decoration: none;">
             <div class="system-image-wrapper">
                 <img src="./agent-page.png" alt="SearchYourTutor Agent Page Screenshot">
-                
                 <div class="agent-label">Agent Page</div>
                 <div class="link-hint">* Click the image or button below to access the AI Agent</div>
                 <span class="action-btn">访问智能体 (Access Agent) ↗</span>
@@ -243,30 +309,92 @@
         </a>
     </div>
 
-    <!-- 3. Study Design (改为竖列形式) -->
+    <!-- 3. Study Design (含二维码) -->
     <div class="section-card">
         <h2><span class="number">3</span> Study Design</h2>
         <p style="margin-top: 0; margin-bottom: 5px;">Experiment flow and procedure:</p>
         
-        <!-- 竖列卡片容器 -->
         <div class="vertical-flow">
             <div class="vertical-box"><strong>IV:AI Agent</strong> Independent Variable</div>
             <div class="vertical-box"><strong>DV:Sacrification</strong> Dependent Variable</div>
             <div class="vertical-box"><strong>Task:</strong> Experimental Task</div>
             <div class="vertical-box"><strong>Procedure:</strong> Study Procedure</div>
         </div>
-        
+
+        <!-- 二维码展示区 -->
+        <div class="qr-container">
+            <p style="margin-top: 0; margin-bottom: 15px; font-weight: bold; color: var(--primary-color);">Scan QR Code to join the survey / experiment</p>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fyuyue.wjx.com%2Fvm%2FOLDyM2w.aspx" alt="Survey QR Code">
+        </div>
     </div>
 
-    <!-- 4. Data Analysis & Results -->
+    <!-- 4. Data Analysis & Results (美化版) -->
     <div class="section-card">
         <h2><span class="number">4</span> Data Analysis & Results</h2>
-        <ul>
-            <li>Data analysis using <strong>SPSS</strong></li>
-            <li>Visual results presentation</li>
-            <li><strong>Wilcoxon test:</strong> For Likert scale data</li>
-            <li><strong>T-test:</strong> For time-based metrics (时间)</li>
-        </ul>
+        
+        <div class="results-container">
+            <div class="conclusion-box" style="margin-bottom: 25px; background-color: #e8f4fd; border-left: 4px solid #3498db; padding: 15px 20px; border-radius: 0 6px 6px 0;">
+                <strong>Core Conclusion:</strong> The completion time using the AI agent (Time_agent) is significantly lower than the official search (Time_official), and the difference is statistically significant (p < .05).
+            </div>
+
+            <h3 class="result-title">Test Statistics</h3>
+            <table class="custom-table statistic-table">
+                <thead>
+                    <tr>
+                        <th>Test Metrics</th>
+                        <th>Test Statistic</th>
+                        <th>p-value (2-tailed)</th>
+                        <th>Significance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Wilcoxon Signed Ranks</strong></td>
+                        <td>Z = -2.580</td>
+                        <td class="highlight-p" style="color: #e74c3c; font-weight: bold; font-size: 1.1rem;">0.010</td>
+                        <td style="color: #27ae60; font-weight: bold;">✅ Significant</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="result-title" style="margin-top: 30px;">Ranks Summary</h3>
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Comparison</th>
+                        <th>N</th>
+                        <th>Mean Rank</th>
+                        <th>Sum of Ranks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Negative Ranks</strong> <span style="color: #888; font-size: 0.85rem;">(Agent < Official)</span></td>
+                        <td>9</td>
+                        <td>6.89</td>
+                        <td>62.00</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Positive Ranks</strong> <span style="color: #888; font-size: 0.85rem;">(Agent > Official)</span></td>
+                        <td>2</td>
+                        <td>2.00</td>
+                        <td>4.00</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ties</strong> <span style="color: #888; font-size: 0.85rem;">(Agent = Official)</span></td>
+                        <td>1</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td><strong>Total</strong></td>
+                        <td><strong>12</strong></td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <!-- 5. Findings & Conclusion -->
@@ -278,12 +406,13 @@
         </ul>
     </div>
 
-    <!-- 6. Limitations & Future Work -->
+    <!-- 6. Recommendation -->
     <div class="section-card">
-        <h2><span class="number">6</span> Limitations & Future Work</h2>
+        <h2><span class="number">6</span> Recommendation</h2>
         <ul>
-            <li>Study limitations</li>
-            <li>Future work and next steps</li>
+            <li>Recommendations for future research</li>
+            <li>Practical suggestions for students</li>
+            <li>Next steps for the AI agent development</li>
         </ul>
     </div>
 
