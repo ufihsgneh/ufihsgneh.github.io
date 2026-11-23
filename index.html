@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Research Presentation Outline</title>
-    
-    <!-- 使用国内 BootCDN，提升加载稳定性 -->
+    <!-- CDN 注意顺序：先chart.js，再boxplot扩展 -->
     <script src="https://cdn.bootcdn.net/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <!-- boxplot UMD会导出全局 ChartBoxplot -->
     <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-boxplot@4.4.0/build/index.umd.min.js"></script>
     
     <style>
-        /* 样式部分保持不变，为节省篇幅省略... 请保留你原有的所有 CSS 样式 */
         :root { --primary-color: #2c3e50; --accent-color: #e74c3c; --bg-color: #f8f9fa; --card-bg: #ffffff; --text-color: #333333; --border-color: #e9ecef; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; margin: 0; padding: 20px; }
         .container { max-width: 900px; margin: 0 auto; }
@@ -39,6 +38,7 @@
         .qr-container { text-align: center; margin-top: 25px; padding: 20px; background-color: #ffffff; border-radius: 8px; border: 1px dashed var(--primary-color); }
         .qr-container img { border: 5px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 8px; width: 150px; height: 150px; }
         .results-container { background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .conclusion-box{margin-bottom:25px;background-color:#e8f4fd;border-left:4px solid #3498db;padding:15px 20px;border-radius:0 6px 6px 0;}
         .result-title { color: var(--primary-color); font-size: 1.1rem; margin-top: 10px; margin-bottom: 15px; border-bottom: 2px solid var(--border-color); padding-bottom: 5px; }
         .custom-table { width: 100%; border-collapse: collapse; margin-bottom: 25px; background-color: #ffffff; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border-radius: 6px; overflow: hidden; }
         .custom-table th, .custom-table td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border-color); }
@@ -50,13 +50,11 @@
     </style>
 </head>
 <body>
-
 <div class="container">
     <header>
         <h1>Research Presentation</h1>
         <div class="subtitle">Project Outline & Study Design</div>
     </header>
-
     <!-- 1. Background -->
     <div class="section-card">
         <h2><span class="number">1</span> Background & Problem</h2>
@@ -65,7 +63,6 @@
             <li><strong>Hypothesis:</strong> The AI agent is more effective than the official school website for finding supervisors.</li>
         </ul>
     </div>
-
     <!-- 2. System -->
     <div class="section-card">
         <h2><span class="number">2</span> System</h2>
@@ -73,17 +70,16 @@
             <li><strong>User Page:</strong> System interface (用户界面)</li>
             <li><strong>Agent Page:</strong> Includes user picture (包含用户图片的代理页面)</li>
         </ul>
-
         <a href="https://aiagent.xjtlu.edu.cn/product/llm/mall/application/db88d6n71095pu7vrka0/chat" target="_blank" style="text-decoration: none;">
             <div class="system-image-wrapper">
-                <img src="./agent-page.png" alt="SearchYourTutor Agent Page Screenshot">
+                <!-- 注意：agent‑page.png 本地没有的话，这个img会404，你要么把图片放到同目录，要么注释掉img标签 -->
+                <!-- <img src="./agent-page.png" alt="SearchYourTutor Agent Page Screenshot"> -->
                 <div class="agent-label">Agent Page</div>
-                <div class="link-hint">* Click the image or button below to access the AI Agent</div>
+                <div class="link-hint">* Click the button below to access the AI Agent</div>
                 <span class="action-btn">访问智能体 (Access Agent) ↗</span>
             </div>
         </a>
     </div>
-
     <!-- 3. Study Design (含二维码) -->
     <div class="section-card">
         <h2><span class="number">3</span> Study Design</h2>
@@ -95,65 +91,53 @@
             <div class="vertical-box"><strong>Task:</strong> Find specific supervisor info</div>
             <div class="vertical-box"><strong>Procedure:</strong> Random assignment -> Test -> Survey</div>
         </div>
-
         <!-- 二维码展示区 -->
         <div class="qr-container">
             <p style="margin-top: 0; margin-bottom: 15px; font-weight: bold; color: var(--primary-color);">Scan QR Code to join the survey / experiment</p>
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fyuyue.wjx.com%2Fvm%2FOLDyM2w.aspx" alt="Survey QR Code">
         </div>
     </div>
-
     <!-- 4. Data Analysis & Results (图表版本) -->
     <div class="section-card">
         <h2><span class="number">4</span> Data Analysis & Results</h2>
         
         <div class="results-container">
-            <!-- 核心结论置顶 -->
-            <div class="conclusion-box" style="margin-bottom: 25px; background-color: #e8f4fd; border-left: 4px solid #3498db; padding: 15px 20px; border-radius: 0 6px 6px 0;">
-                <strong>Core Conclusion:</strong> The completion time using the AI agent (Time_agent) is significantly lower than the official search (Time_official), and the difference is statistically significant (p < .05). However, the Official Website still scores higher in providing confidence.
+            <div class="conclusion-box">
+                <strong>Core Conclusion:</strong> The completion time using the AI agent (Time_agent) is significantly lower than the official search (Time_official), and the difference is statistically significant (p &lt; .05). However, the Official Website still scores higher in providing confidence.
             </div>
-
-            <!-- 图表容器：时间箱线图 -->
             <h3 class="result-title">Time Distribution (Boxplot Analysis)</h3>
             <div class="chart-container" style="position: relative; height:300px; width:100%; margin-bottom: 30px;">
                 <canvas id="boxplotChart"></canvas>
             </div>
-
-            <!-- 图表容器：时间对比柱状图 -->
             <h3 class="result-title">Time Comparison (Agent vs Official)</h3>
             <div class="chart-container" style="position: relative; height:300px; width:100%; margin-bottom: 30px;">
                 <canvas id="timeChart"></canvas>
             </div>
-
-            <!-- 图表容器：问卷雷达图 -->
             <h3 class="result-title">User Experience Dimensions (Average Scores)</h3>
             <div class="chart-container" style="position: relative; height:350px; width:100%; max-width: 500px; margin: 0 auto 30px auto;">
                 <canvas id="radarChart"></canvas>
             </div>
-
-            <!-- 统计检验结果表 -->
             <h3 class="result-title">Statistical Test Statistics</h3>
             <table class="custom-table statistic-table">
                 <thead>
                     <tr>
                         <th>Test Metrics</th>
                         <th>Test Statistic</th>
-                        <th>p-value (2-tailed)</th>
+                        <th>p‑value (2‑tailed)</th>
                         <th>Significance</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><strong>Wilcoxon Signed Ranks</strong></td>
-                        <td>Z = -2.580</td>
-                        <td class="highlight-p" style="color: #e74c3c; font-weight: bold; font-size: 1.1rem;">0.010</td>
+                        <td>Z = ‑2.580</td>
+                        <td style="color: #e74c3c; font-weight: bold; font-size: 1.1rem;">0.010</td>
                         <td style="color: #27ae60; font-weight: bold;">✅ Significant</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
-
     <!-- 5. Findings & Conclusion -->
     <div class="section-card">
         <h2><span class="number">5</span> Findings & Conclusion</h2>
@@ -162,7 +146,6 @@
             <li>Users are highly satisfied with the Agent's efficiency, but trust remains a factor.</li>
         </ul>
     </div>
-
     <!-- 6. Recommendation -->
     <div class="section-card">
         <h2><span class="number">6</span> Recommendation</h2>
@@ -172,184 +155,177 @@
             <li><strong>For School:</strong> Consider integrating AI search into the official website.</li>
         </ul>
     </div>
-
 </div>
 
-<!-- ================= 图表渲染脚本 ================= -->
 <script>
-    // 使用 window.onload 确保所有资源（包括 CDN 脚本）和 DOM 完全加载
-    window.onload = function() {
-        
-        // 1. 检查核心库是否成功加载
-        if (typeof Chart === 'undefined') {
-            console.error('错误：Chart.js 核心库未能加载，请检查网络或 CDN 链接。');
-            return;
-        }
+document.addEventListener('DOMContentLoaded', function () {
+    if (typeof Chart === 'undefined') {
+        console.error('Chart.js 加载失败');
+        return;
+    }
+    // ✅ boxplot UMD导出在全局ChartBoxplot对象，不是Chart内部
+    if(typeof ChartBoxplot === 'undefined'){
+        console.error('chartjs‑chart‑boxplot扩展加载失败！');
+        return;
+    }
+    const { BoxPlotController, BoxAndWiskers } = ChartBoxplot;
+    Chart.register(BoxPlotController, BoxAndWiskers);
 
-        // 2. 显式注册箱线图控制器及所需组件
-        try {
-            const { BoxPlotController, BoxAndWiskers } = Chart;
-            if (BoxPlotController && BoxAndWiskers) {
-                Chart.register(...Chart.registerables, BoxPlotController, BoxAndWiskers);
-                console.log('箱线图组件注册成功。');
-            } else {
-                // 部分 UMD 构建可能将控制器挂载在全局作用域
-                if (typeof BoxPlotController !== 'undefined' && typeof BoxAndWiskers !== 'undefined') {
-                    Chart.register(...Chart.registerables, BoxPlotController, BoxAndWiskers);
-                    console.log('箱线图组件（全局）注册成功。');
-                } else {
-                    console.warn('警告：未能找到 BoxPlot 控制器，箱线图可能无法渲染。');
-                }
-            }
-        } catch (e) {
-            console.warn('注册箱线图时发生异常:', e);
+    // -------- Boxplot 注意：boxplot插件接收预计算对象，不接受原始数组，这里使用工具函数转换原始数组
+    function arrayToBoxplotData(arr){
+        const s = [...arr].sort((a,b)=>a‑b);
+        const len = s.length;
+        const q1Idx = Math.floor(len*0.25);
+        const q3Idx = Math.floor(len*0.75);
+        return {
+            min:s[0],
+            q1:s[q1Idx],
+            median:s[Math.floor(len*0.5)],
+            q3:s[q3Idx],
+            max:s[len‑1],
+            outliers:[]
         }
+    }
+    const officialRaw = [80, 52, 243, 1200, 500, 300, 150, 120, 300, 20, 300, 600];
+    const agentRaw = [120, 61, 180, 360, 3, 60, 5, 100, 150, 20, 180, 360];
 
-        // --- 时间对比箱线图 (Boxplot) ---
-        const boxplotCanvas = document.getElementById('boxplotChart');
-        if (boxplotCanvas) {
-            const boxplotCtx = boxplotCanvas.getContext('2d');
-            new Chart(boxplotCtx, {
-                type: 'boxplot',
-                data: {
-                    labels: ['Official Search', 'AI Agent'],
-                    datasets: [{
-                        label: 'Time (Seconds)',
-                        data: [
-                            [80, 52, 243, 1200, 500, 300, 150, 120, 300, 20, 300, 600], // Official
-                            [120, 61, 180, 360, 3, 60, 5, 100, 150, 20, 180, 360]     // Agent
-                        ],
-                        backgroundColor: ['rgba(149, 165, 166, 0.8)', 'rgba(44, 62, 80, 0.8)'],
-                        borderColor: ['#7f8c8d', '#1a252f'],
-                        borderWidth: 1.5,
-                        outlierColor: '#e74c3c',
-                        medianColor: '#ffffff'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let item = context.raw;
-                                    if (item && item.min !== undefined) {
-                                        return [
-                                            `Max: ${item.max.toFixed(1)}s`,
-                                            `Q3: ${item.q3.toFixed(1)}s`,
-                                            `Median: ${item.median.toFixed(1)}s`,
-                                            `Q1: ${item.q1.toFixed(1)}s`,
-                                            `Min: ${item.min.toFixed(1)}s`
-                                        ];
-                                    }
-                                    return item;
-                                }
+    const boxplotCanvas = document.getElementById('boxplotChart');
+    if (boxplotCanvas) {
+        const boxplotCtx = boxplotCanvas.getContext('2d');
+        new Chart(boxplotCtx, {
+            type: 'boxplot',
+            data: {
+                labels: ['Official Search', 'AI Agent'],
+                datasets: [{
+                    label: 'Time (Seconds)',
+                    data: [ arrayToBoxplotData(officialRaw), arrayToBoxplotData(agentRaw) ],
+                    backgroundColor: ['rgba(149, 165, 166, 0.8)', 'rgba(44, 62, 80, 0.8)'],
+                    borderColor: ['#7f8c8d', '#1a252f'],
+                    borderWidth: 1.5,
+                    outlierColor: '#e74c3c',
+                    medianColor: '#ffffff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const item = context.raw;
+                                return [
+                                    `Max: ${item.max.toFixed(1)}s`,
+                                    `Q3: ${item.q3.toFixed(1)}s`,
+                                    `Median: ${item.median.toFixed(1)}s`,
+                                    `Q1: ${item.q1.toFixed(1)}s`,
+                                    `Min: ${item.min.toFixed(1)}s`
+                                ];
                             }
                         }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: { display: true, text: 'Time (Seconds)' },
-                            grid: { color: '#e9ecef' }
-                        },
-                        x: { grid: { display: false } }
                     }
-                }
-            });
-        }
-
-        // --- 时间对比柱状图 ---
-        const timeCanvas = document.getElementById('timeChart');
-        if (timeCanvas) {
-            const timeCtx = timeCanvas.getContext('2d');
-            new Chart(timeCtx, {
-                type: 'bar',
-                data: {
-                    labels: ['P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8', 'P9', 'P10', 'P11', 'P12'],
-                    datasets: [
-                        {
-                            label: 'Official Search (Seconds)',
-                            data: [80, 52, 243, 1200, 500, 300, 150, 120, 300, 20, 300, 600],
-                            backgroundColor: '#95a5a6',
-                            borderColor: '#7f8c8d',
-                            borderWidth: 1
-                        },
-                        {
-                            label: 'AI Agent (Seconds)',
-                            data: [120, 61, 180, 360, 3, 60, 5, 100, 150, 20, 180, 360],
-                            backgroundColor: '#2c3e50',
-                            borderColor: '#1a252f',
-                            borderWidth: 1
-                        }
-                    ]
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: 'top' },
-                        tooltip: { mode: 'index', intersect: false }
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Time (Seconds)' },
+                        grid: { color: '#e9ecef' }
                     },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: { display: true, text: 'Time (Seconds)' }
-                        }
-                    }
+                    x: { grid: { display: false } }
                 }
-            });
-        }
+            }
+        });
+    }
 
-        // --- 用户体验雷达图 ---
-        const radarCanvas = document.getElementById('radarChart');
-        if (radarCanvas) {
-            const radarCtx = radarCanvas.getContext('2d');
-            new Chart(radarCtx, {
-                type: 'radar',
-                data: {
-                    labels: ['Information', 'Save Time', 'Match', 'Confidence', 'Decision'],
-                    datasets: [
-                        {
-                            label: 'Official Website',
-                            data: [4.25, 3.50, 3.58, 4.50, 3.75],
-                            backgroundColor: 'rgba(149, 165, 166, 0.2)',
-                            borderColor: '#95a5a6',
-                            pointBackgroundColor: '#95a5a6',
-                            borderWidth: 2
-                        },
-                        {
-                            label: 'AI Agent',
-                            data: [3.83, 4.08, 4.17, 3.75, 4.17],
-                            backgroundColor: 'rgba(44, 62, 80, 0.2)',
-                            borderColor: '#2c3e50',
-                            pointBackgroundColor: '#2c3e50',
-                            borderWidth: 2
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: 'bottom' }
+    // -------- 柱状图
+    const timeCanvas = document.getElementById('timeChart');
+    if (timeCanvas) {
+        const timeCtx = timeCanvas.getContext('2d');
+        new Chart(timeCtx, {
+            type: 'bar',
+            data: {
+                labels: ['P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8', 'P9', 'P10', 'P11', 'P12'],
+                datasets: [
+                    {
+                        label: 'Official Search (Seconds)',
+                        data: officialRaw,
+                        backgroundColor: '#95a5a6',
+                        borderColor: '#7f8c8d',
+                        borderWidth: 1
                     },
-                    scales: {
-                        r: {
-                            angleLines: { color: '#e9ecef' },
-                            grid: { color: '#e9ecef' },
-                            pointLabels: { font: { size: 13, weight: 'bold' }, color: '#2c3e50' },
-                            suggestedMin: 2,
-                            suggestedMax: 5
-                        }
+                    {
+                        label: 'AI Agent (Seconds)',
+                        data: agentRaw,
+                        backgroundColor: '#2c3e50',
+                        borderColor: '#1a252f',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'top' },
+                    tooltip: { mode: 'index', intersect: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Time (Seconds)' }
                     }
                 }
-            });
-        }
-    };
+            }
+        });
+    }
+
+    // --------雷达图
+    const radarCanvas = document.getElementById('radarChart');
+    if (radarCanvas) {
+        const radarCtx = radarCanvas.getContext('2d');
+        new Chart(radarCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Information', 'Save Time', 'Match', 'Confidence', 'Decision'],
+                datasets: [
+                    {
+                        label: 'Official Website',
+                        data: [4.25, 3.50, 3.58, 4.50, 3.75],
+                        backgroundColor: 'rgba(149, 165, 166, 0.2)',
+                        borderColor: '#95a5a6',
+                        pointBackgroundColor: '#95a5a6',
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'AI Agent',
+                        data: [3.83, 4.08, 4.17, 3.75, 4.17],
+                        backgroundColor: 'rgba(44, 62, 80, 0.2)',
+                        borderColor: '#2c3e50',
+                        pointBackgroundColor: '#2c3e50',
+                        borderWidth: 2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                },
+                scales: {
+                    r: {
+                        angleLines: { color: '#e9ecef' },
+                        grid: { color: '#e9ecef' },
+                        pointLabels: { font: { size: 13, weight: 'bold' }, color: '#2c3e50' },
+                        suggestedMin: 2,
+                        suggestedMax: 5
+                    }
+                }
+            }
+        });
+    }
+});
 </script>
-
 </body>
 </html>
